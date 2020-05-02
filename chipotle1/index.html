@@ -1,0 +1,49 @@
+<html>
+<head>
+	
+	<!--
+		AIzaSyCF-YHpaFFWjAqocDxuE2ZKswlnvWKxUwA
+	-->
+	
+	<script async defer
+  	src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+	</script>
+
+	<script async defer 
+		src="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&name=chipotlemexicangrill&key=YOUR_API_KEY">
+	</script>
+
+	<script type="text/javascript"> 
+
+		function findChipotle(latitude, longitude) {
+			console.log(`${latitude} ${longitude}`);
+
+			let answer = document.getElementById("answer");
+			answer.innerHTML = `${latitude} ${longitude}`;
+
+			let api = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&name=chipotlemexicangrill&key=YOUR_API_KEY"
+		};
+
+		function getLocation() {   
+			console.log("get location"); 
+	    if(navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function(position) {
+	        	findChipotle(position.coords.latitude, position.coords.longitude);
+	        });
+	    } else {
+	        console.log('Geolocation is not supported by this device');
+	    }
+		};
+
+		getLocation();
+	</script>
+</head>
+
+<body>
+
+	<p>Is my Chipotle open?</p>
+	<p id="answer"> </p>
+
+
+</body>
+</html>
