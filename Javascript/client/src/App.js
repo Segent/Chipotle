@@ -14,49 +14,39 @@ class App extends Component{
      };
 	}
 
-	/*callAPI() {
-	    fetch("http://localhost:8080")
-	        .then(res => res.text())
-	        .then(res => this.setState({ 
-	        	apiResponse: res,
-	        	lat: this.state.lat,
-    				long: this.state.long,
-	        }));
-	}*/
-
-	/*getChipotle() {
-		axios.post("http://localhost:8080", {
-				lat: this.state.lat,
-				long: this.state.long,
-		})
-			.then(res=> this.setState({
-				apiResponse:res,
-				lat:this.state.lat,
-				long:this.state.long,
-			}));
-	}*/
-
 	componentDidMount() {
 		let currentComponent = this;
-		navigator.geolocation.getCurrentPosition(function(position) {
+		navigator.geolocation.getCurrentPosition(
+			function(position) {
       /*currentComponent.setState( {
       	apiResponse: currentComponent.state.apiResponse,
         lat: position.coords.latitude,
         long: position.coords.longitude,
       });*/
-			axios.post("http://localhost:8080", {
-				lat: position.coords.latitude,
-				long: position.coords.longitude,
-			})
-			.then( function (res) {
-				console.log(res.data);
-			 	
-			 	currentComponent.setState( {
-      	apiResponse: res.data,
-        lat: position.coords.latitude,
-        long: position.coords.longitude,
-      })});
-	})}
+				axios.post("http://localhost:8080", {
+					lat: position.coords.latitude,
+					long: position.coords.longitude,
+				})
+				.then( function (res) {
+					console.log(res.data);
+				 	
+				 	currentComponent.setState( {
+	      	apiResponse: res.data,
+	        lat: position.coords.latitude,
+	        long: position.coords.longitude,
+	      })})
+    }, 
+    	function(error) {
+    		if (error.code == error.PERMISSION_DENIED) {
+    			console.log("Location Permission denied");
+    			currentComponent.setState( {
+    				apiResponse: "Location Permission denied",
+    				lat: 0,
+    				long: 0,
+    			})
+    		}
+    	})
+	}
 	/*<p> 
 	 {t his.state.apiResponse}
 	 </p>*/
