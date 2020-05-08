@@ -64,10 +64,12 @@ app.post('/', function(req, res) {
 		 let nearest = chipotleRes.data.results[0];
 		 if (nearest) {
 		 	let open = nearest.opening_hours.open_now;
+		 	console.log("working or not?");
 		 	(open) ? (res.send("Yes")) : (res.send("No"));
+
 		 }
 		 else {
-		 	res.send(`No Chipotle within ${radius / 1609} miles`);
+		 	res.send(`No Chipotle within ${radius / 40233} miles`);
 		 }
 		},
 		(error) => {
